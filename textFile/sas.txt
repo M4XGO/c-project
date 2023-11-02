@@ -5,3 +5,7 @@ temps = 120
 sas1 = 1
 
 test = 1 
+
+badgeFrigo1 = 1
+capteurTemp1 = -40
+timer1 = 120

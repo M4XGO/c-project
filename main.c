@@ -14,15 +14,23 @@ struct Frigo {
     int capteurTemp;
     int timer;
 };
+char line2[256];
+
+int putInStructFrigo(char *line) {
+
+    struct Frigo frigoScenario1;
 
 
-int putInStruct(char *line) {
     printf("Ligne : %s", line);
     return 0;
 }
 
 // Driver code
-int readFile(const char *filename, const char *searchValue) {
+int lireFichier(const char *filename, const char *searchValue) {
+    char line[256];  // Une ligne peut contenir jusqu'à 255 caractères, ajustez selon vos besoins
+    int lineNumber = 1;
+    int found = 0;
+  
     FILE *file = fopen(filename, "r");
     
     if (file == NULL) {
@@ -30,15 +38,11 @@ int readFile(const char *filename, const char *searchValue) {
         return 1;
     }
 
-    char line[256];  // Une ligne peut contenir jusqu'à 255 caractères, ajustez selon vos besoins
-    int lineNumber = 1;
-    int found = 0;
 
     while (fgets(line, sizeof(line), file) != NULL) {
         if (strstr(line, searchValue) != NULL) {
             found = 1;
-            putInStruct(line);
-            
+            strcpy(line2, line);
         }
         lineNumber++;
     }
@@ -79,9 +83,18 @@ int writeInFunction()
 
 int main() {
 
-    int sasCouloir1 = readFile("./textFile/sas.txt", "sas1");
+    int badgeFrigo1 = lireFichier("./textFile/sas.txt", "badgeFrigo1");
 
-    int sasCouloir2 = readFile("./textFile/sas.txt", "sas2");
+    printf("%s", line2);
+    printf("\n");
+
+    int capteurTemp1 = lireFichier("./textFile/sas.txt", "capteurTemp1");
+    printf("%s", line2);
+    printf("\n");
+
+    int timer1 = lireFichier("./textFile/sas.txt", "timer1");
+    printf("%s", line2);
+    printf("\n");
 
 
     
