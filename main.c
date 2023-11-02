@@ -10,9 +10,9 @@ struct Couloir {
 
 
 struct Frigo {
-    int badgeFrigo;
-    int capteurTemp;
-    int timer;
+    char badgeFrigo[256];
+    char capteurTemp[256];
+    char timer[256];
 };
 char line2[256];
 
@@ -83,20 +83,27 @@ int writeInFunction()
 
 int main() {
 
-    int badgeFrigo1 = lireFichier("./textFile/sas.txt", "badgeFrigo1");
+    struct Frigo frigoScenario1;
 
+    int badgeFrigo1 = lireFichier("./textFile/sas.txt", "badgeFrigo1");
     printf("%s", line2);
+    strcpy(frigoScenario1.badgeFrigo, line2);
+    printf("struct %s\n",frigoScenario1.badgeFrigo);
     printf("\n");
 
     int capteurTemp1 = lireFichier("./textFile/sas.txt", "capteurTemp1");
     printf("%s", line2);
+    strcpy(frigoScenario1.capteurTemp, line2);
+    printf("struct %s\n",frigoScenario1.capteurTemp);
     printf("\n");
 
     int timer1 = lireFichier("./textFile/sas.txt", "timer1");
+    strcpy(frigoScenario1.timer, line2);
     printf("%s", line2);
+    printf("struct %s\n",frigoScenario1.timer);
     printf("\n");
 
-
+   
     
     return 0;
 }
