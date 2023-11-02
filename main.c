@@ -16,14 +16,18 @@ struct Frigo {
 };
 
 
-
+int putInStruct(char *line) {
+    printf("Ligne : %s", line);
+    return 0;
+}
 
 // Driver code
-char *readFile(const char *filename, const char *searchValue) {
+int readFile(const char *filename, const char *searchValue) {
     FILE *file = fopen(filename, "r");
     
     if (file == NULL) {
         printf("Le fichier ne peut pas être ouvert\n");
+        return 1;
     }
 
     char line[256];  // Une ligne peut contenir jusqu'à 255 caractères, ajustez selon vos besoins
@@ -33,9 +37,8 @@ char *readFile(const char *filename, const char *searchValue) {
     while (fgets(line, sizeof(line), file) != NULL) {
         if (strstr(line, searchValue) != NULL) {
             found = 1;
-
-            // printf("Ligne %d : %s", lineNumber, line);
-            return line;
+            putInStruct(line);
+            
         }
         lineNumber++;
     }
@@ -48,6 +51,7 @@ char *readFile(const char *filename, const char *searchValue) {
 
     return 0;
 }
+
 
 
 int writeInFunction()
@@ -75,24 +79,10 @@ int writeInFunction()
 
 int main() {
 
-    struct Frigo scenarioFrigo1;
-    struct Couloir scenarioCouloir1;
+    int sasCouloir1 = readFile("./textFile/sas.txt", "sas1");
 
-    char *sasCouloir1 = readFile("./textFile/sas.txt", "sas1");
+    int sasCouloir2 = readFile("./textFile/sas.txt", "sas2");
 
-    char *sasCouloir2 = readFile("./textFile/sas.txt", "sas2");
-    // int sasCouloir2 = readFile("./textFile/sas.txt", "sas2");
-
-
-    printf("Sas 1 : %s\n", sasCouloir1);
-    printf("Sas 2 : %s\n", sasCouloir2);
-    // printf("Sas 2 : %s\n", &sasCouloir2);
-
-    // for (int i = 0; i < 256; i++)
-    // {
-    //     printf("%c", line[i]);
-        
-    // }
 
     
     return 0;
