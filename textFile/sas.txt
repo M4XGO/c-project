@@ -1,0 +1,7 @@
+sas2 = 0
+porte = 0 
+temps = 120
+
+sas1 = 1
+
+test = 1 
