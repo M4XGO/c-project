@@ -3,13 +3,13 @@
 #include <string.h>
  
 
-struct couloir {
+struct Couloir {
     int badgeSas1;
     int badgeSas2;
 };
 
 
-struct frigo {
+struct Frigo {
     int badgeFrigo;
     int capteurTemp;
     int timer;
@@ -17,12 +17,13 @@ struct frigo {
 
 
 
+
 // Driver code
-int readFile(const char *filename, const char *searchValue) {
+char *readFile(const char *filename, const char *searchValue) {
     FILE *file = fopen(filename, "r");
+    
     if (file == NULL) {
         printf("Le fichier ne peut pas être ouvert\n");
-        return 1;
     }
 
     char line[256];  // Une ligne peut contenir jusqu'à 255 caractères, ajustez selon vos besoins
@@ -32,7 +33,9 @@ int readFile(const char *filename, const char *searchValue) {
     while (fgets(line, sizeof(line), file) != NULL) {
         if (strstr(line, searchValue) != NULL) {
             found = 1;
-            printf("Ligne %d : %s", lineNumber, line);
+
+            // printf("Ligne %d : %s", lineNumber, line);
+            return line;
         }
         lineNumber++;
     }
@@ -42,6 +45,7 @@ int readFile(const char *filename, const char *searchValue) {
     }
 
     fclose(file);
+
     return 0;
 }
 
@@ -70,13 +74,26 @@ int writeInFunction()
 
 
 int main() {
-    const char *filename = "./textFile/sas.txt";
-    const char *searchValue = "sas";
 
-    int result = readFile(filename, searchValue);
+    struct Frigo scenarioFrigo1;
+    struct Couloir scenarioCouloir1;
 
-    if (result != 0) {
-        printf("Erreur lors de la lecture du fichier.\n");
-    }
+    char *sasCouloir1 = readFile("./textFile/sas.txt", "sas1");
+
+    char *sasCouloir2 = readFile("./textFile/sas.txt", "sas2");
+    // int sasCouloir2 = readFile("./textFile/sas.txt", "sas2");
+
+
+    printf("Sas 1 : %s\n", sasCouloir1);
+    printf("Sas 2 : %s\n", sasCouloir2);
+    // printf("Sas 2 : %s\n", &sasCouloir2);
+
+    // for (int i = 0; i < 256; i++)
+    // {
+    //     printf("%c", line[i]);
+        
+    // }
+
+    
     return 0;
 }
