@@ -2,33 +2,46 @@
 #include <stdlib.h>
 #include <string.h>
  
+
+struct couloir {
+    int badgeSas1;
+    int badgeSas2;
+};
+
+
+struct frigo {
+    int badgeFrigo;
+    int capteurTemp;
+    int timer;
+};
+
+
+
 // Driver code
-int readFile()
-{
-    FILE* ptr;
-    char ch;
- 
-    // Opening file in reading mode
-    ptr = fopen("./textFile/sas.txt", "r");
- 
-    if (NULL == ptr) {
-        printf("file can't be opened \n");
+int readFile(const char *filename, const char *searchValue) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Le fichier ne peut pas être ouvert\n");
+        return 1;
     }
- 
-    printf("content of this file are \n");
- 
-    // Printing what is written in file
-    // character by character using loop.
-    do {
-        ch = fgetc(ptr);
-        printf("%c", ch);
- 
-        // Checking if character is not EOF.
-        // If it is EOF stop reading.
-    } while (ch != EOF);
- 
-    // Closing the file
-    fclose(ptr);
+
+    char line[256];  // Une ligne peut contenir jusqu'à 255 caractères, ajustez selon vos besoins
+    int lineNumber = 1;
+    int found = 0;
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strstr(line, searchValue) != NULL) {
+            found = 1;
+            printf("Ligne %d : %s", lineNumber, line);
+        }
+        lineNumber++;
+    }
+
+    if (!found) {
+        printf("Aucune ligne ne contient '%s'\n", searchValue);
+    }
+
+    fclose(file);
     return 0;
 }
 
@@ -57,7 +70,13 @@ int writeInFunction()
 
 
 int main() {
-    writeInFunction();
-    readFile();
+    const char *filename = "./textFile/sas.txt";
+    const char *searchValue = "sas";
+
+    int result = readFile(filename, searchValue);
+
+    if (result != 0) {
+        printf("Erreur lors de la lecture du fichier.\n");
+    }
     return 0;
 }
