@@ -10,12 +10,35 @@ struct Couloir {
 
 
 struct Frigo {
-    char badgeFrigo[256];
+    char badgeFrigoEntre[256];
+    char badgeFrigoSortie[256];
     char capteurTemp[256];
     char timer[256];
 };
 
 char line2[256];
+
+int verifBadgeEntre(int badge){
+    if (badge == 1){
+        printf("La personne est rentré\n");
+        return 1;
+    }
+    else{
+        printf("La personne n'est pas rentré\n");
+        return 0;
+    }
+}
+
+int verifBadgeSortie(int badge){
+    if (badge == 1){
+        printf("ATTENTION : La personne n'est pas sorti\n");
+        return 1;
+    }
+    else{
+        printf("La personne est sorti\n");
+        return 0;
+    }
+}
 
 // Driver code
 int lireFichier(const char *filename, const char *searchValue) {
@@ -72,6 +95,24 @@ int writeInFunction()
     return 0;
 }
 
+int retourneDenierNombre (char chaine[256]){
+    int resultat;
+    sscanf(chaine + (strlen(chaine) - 2), "%d", &resultat);
+    return resultat;
+}
+int retourneTemp (char chaine[256]){
+    int resultat;
+    sscanf(chaine + (strlen(chaine) - 4), "%d", &resultat);
+    return resultat;
+}
+
+int retourneTime (char chaine[256]){
+    int resultat;
+    sscanf(chaine + (strlen(chaine) - 5), "%d", &resultat);
+    return resultat;
+}
+
+
 void lectureScenario(int i ){
     //crétion des structures qui vont être utiliées
     struct Frigo frigoScenario;
@@ -80,14 +121,16 @@ void lectureScenario(int i ){
     //création de varibale pour pouvoir concaténer les noms des variables avec i 
     char badgeEntre[50];
     char badgeSortie[50];
-    char badgeFrigo[50];
+    char badgeFrigoEntre[50];
+    char badgeFrigoSortie[50];
     char capteurTemp[50];
     char timer[50];
 
     //concaténation
     sprintf(badgeEntre, "badgeEntre%d", i);
     sprintf(badgeSortie, "badgeSortie%d", i);
-    sprintf(badgeFrigo, "badgeFrigo%d", i);
+    sprintf(badgeFrigoEntre, "badgeFrigoEntre%d", i);
+    sprintf(badgeFrigoSortie, "badgeFrigoSortie%d", i);
     sprintf(capteurTemp, "capteurTemp%d", i);
     sprintf(timer, "timer%d", i);
 
@@ -97,8 +140,10 @@ void lectureScenario(int i ){
     strcpy(couloirScenario.badgeEntre, line2);
     int badgeSas2 = lireFichier("./textFile/sas.txt", badgeSortie);
     strcpy(couloirScenario.badgeSortie, line2);
-    int badgeFrigo1 = lireFichier("./textFile/sas.txt", badgeFrigo);
-    strcpy(frigoScenario.badgeFrigo, line2);
+    int badgeFrigo1 = lireFichier("./textFile/sas.txt", badgeFrigoEntre);
+    strcpy(frigoScenario.badgeFrigoEntre, line2);
+    int badgeFrigo2 = lireFichier("./textFile/sas.txt", badgeFrigoSortie);
+    strcpy(frigoScenario.badgeFrigoSortie, line2);
     int capteurTemp1 = lireFichier("./textFile/sas.txt", capteurTemp);
     strcpy(frigoScenario.capteurTemp, line2);
     int timer1 = lireFichier("./textFile/sas.txt", timer);
@@ -106,13 +151,13 @@ void lectureScenario(int i ){
    
    //affichage des structures
     printf("\n");
-    printf("struct %s\n%s\n%s\n%s\n%s\n",couloirScenario.badgeEntre,couloirScenario.badgeSortie,frigoScenario.badgeFrigo,frigoScenario.capteurTemp,frigoScenario.timer);    
+    printf("badge entre %d\n badge sortie %d\n badge frigo entre %d\n badge frigo sortie %d\n temp %d\n timer %d\n",retourneDenierNombre(couloirScenario.badgeEntre),retourneDenierNombre(couloirScenario.badgeSortie),retourneDenierNombre(frigoScenario.badgeFrigoEntre),retourneDenierNombre(frigoScenario.badgeFrigoSortie),retourneTemp(frigoScenario.capteurTemp),retourneTime(frigoScenario.timer));    
     
 }
 
 int main() {
     //boucle qui va parcourir les i scénarios
-    for (int i = 1; i < 4; i++){
+    for (int i = 1; i < 6; i++){
         //fonction de parcours de scénarios
         lectureScenario(i);
     }

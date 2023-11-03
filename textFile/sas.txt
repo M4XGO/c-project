@@ -1,22 +1,42 @@
-#Scénario 1
-badgeFrigo1 = 1
+#Scénario 1 = tout va bien
+badgeFrigoEntre1 = 1
+badgeFrigoSortie1 = 1
 capteurTemp1 = -40
 timer1 = 1800
 badgeEntre1 = 1
 badgeSortie1 = 1
 
 
-#Scénario 2
-badgeFrigo2 = 1
+#Scénario 2 = la temperature de la piece a augmente
+badgeFrigoEntre2 = 1
+badgeFrigoSortie2 = 1
 capteurTemp2 = 0
 timer2 = 1800
 badgeEntre2 = 1
 badgeSortie2 = 1
 
 
-#Scénario 3
-badgeFrigo3 = 1
+#Scénario 3 = la personne n est jamais sorti d un frigo
+badgeFrigoEntre3 = 1
+badgeFrigoSortie3 = 0
 capteurTemp3 = -40
 timer3 = 1800
 badgeEntre3 = 1
-badgeSortie3 = 0
+badgeSortie3 = 1
+
+#Scénario 4 = la personne est rester une heure dans un frigo
+badgeFrigoEntre4 = 1
+badgeFrigoSortie4 = 0
+capteurTemp4 = -40
+timer4 = 3600
+badgeEntre4 = 1
+badgeSortie4 = 0
+
+
+#Scénario 5 = La personne n est pas sorti du local
+badgeFrigoEntre5 = 1
+badgeFrigoSortie5 = 1
+capteurTemp5 = -40
+timer5 = 1800
+badgeEntre5 = 1
+badgeSortie5 = 0
