@@ -1,3 +1,22 @@
+#Scénario 1
 badgeFrigo1 = 1
 capteurTemp1 = -40
-timer1 = 120
+timer1 = 1800
+badgeEntre1 = 1
+badgeSortie1 = 1
+
+
+#Scénario 2
+badgeFrigo2 = 1
+capteurTemp2 = 0
+timer2 = 1800
+badgeEntre2 = 1
+badgeSortie2 = 1
+
+
+#Scénario 3
+badgeFrigo3 = 1
+capteurTemp3 = -40
+timer3 = 1800
+badgeEntre3 = 1
+badgeSortie3 = 0
