@@ -1,0 +1,17 @@
+###### Scenario 1 #######
+Le scénario est bon, tout s'est bien déroulé.
+
+###### Scenario 2 #######
+La température du frigo est trop haute : 0
+
+###### Scenario 3 #######
+La personne n'est pas sorti du frigo
+
+###### Scenario 4 #######
+La personne est resté trop longtemps dans le frigo : 3600sec
+La personne n'est pas sorti du frigo
+La personne n'est pas sorti du sas
+
+###### Scenario 5 #######
+La personne n'est pas sorti du sas
+
