@@ -8,6 +8,7 @@ OBJ = $(SRC:.c=.o)
 EXECUTABLE = my_program
 
 all: $(EXECUTABLE)
+	@echo "Compilation succeeded. Run './$(EXECUTABLE)' to execute."
 
 $(EXECUTABLE): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
