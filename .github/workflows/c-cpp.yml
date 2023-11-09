@@ -14,4 +14,4 @@ jobs:
     - name: Build with Makefile
       run: make
     - name: Run the program
-      run: run ./my_program
+      run: make run ./my_program
