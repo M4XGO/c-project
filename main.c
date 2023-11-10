@@ -83,7 +83,7 @@ int verifTemps(int temp){
 int verifTime(int time){
     
 
-    //attendreSecondes(time);
+    attendreSecondes(time);
     if (time >2){
         // printf("ATTENTION : Le temps est dépassé, la personne à attendu %d secondes\n", time);
         return 0;
@@ -161,7 +161,9 @@ int retourneTemp (char chaine[256]){
 
 int retourneTime (char chaine[256]){
     int resultat;
-    sscanf(chaine + (strlen(chaine) - 5), "%d", &resultat);
+    // printf("chaine : %s\n", chaine);
+    sscanf(chaine + (strlen(chaine) - 2), "%d", &resultat);
+    // printf("resultat : %d\n", resultat);
     return resultat;
 }
 
@@ -171,7 +173,7 @@ int verifScenario(int i){
     char logs[265]; 
     //concaténation du numéro de scénario
     char numScenario[256];
-    sprintf(numScenario,"###### Scenario %d #######\n", i);
+    sprintf(numScenario,"###### Scenario %d #   ######\n", i);
 
     char phrasePlusTempFrigo[256];
     char phrasePlusTimeFrigo[256];
@@ -191,19 +193,19 @@ int verifScenario(int i){
         strcat(logs, "La personne n'est pas sorti du frigo\n");
         allVerifPass++;
     }
+    if (verifTime(frigoScenario.timer) == 0){
+        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+        // printf("%s", phrasePlusTimeFrigo);
+        strcat(logs, phrasePlusTimeFrigo);
+        allVerifPass++;
+    }
     if (verifTemps(frigoScenario.capteurTemp) == 0){
-        sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d\n", frigoScenario.capteurTemp);
+        sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
         strcat(logs, phrasePlusTempFrigo);
         allVerifPass++;
     }
     if (verifBadgeSortie(couloirScenario.badgeSortie) == 0){
         strcat(logs, "La personne n'est pas sorti du sas\n");
-        allVerifPass++;
-    }
-    if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
-        printf("%s", phrasePlusTimeFrigo);
-        strcat(logs, phrasePlusTimeFrigo);
         allVerifPass++;
     }
     if (allVerifPass == 0){
