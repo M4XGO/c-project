@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
  
 
 struct Couloir {
@@ -25,9 +26,25 @@ struct Frigo {
 char line2[256];
 struct Frigo frigoScenario;
 struct Couloir couloirScenario;
+char chemin[50] = "./textFile/scenario.txt";
+char chemin2[50] = "./textFile/logs.txt";
+
+void attendreSecondes(int secondes) {
+    clock_t début = clock();
+    clock_t maintenant;
+
+    while (1) {
+        maintenant = clock();
+        double tempsPassé = (double)(maintenant - début) / CLOCKS_PER_SEC;
+
+        if (tempsPassé >= secondes) {
+            break;
+        }
+    }
+}
 
 void viderFichierLog(){
-    FILE *fp = fopen("./textFile/logs.txt", "w");
+    FILE *fp = fopen(chemin2, "w");
     fclose(fp);
 }
 
@@ -64,12 +81,16 @@ int verifTemps(int temp){
 }
 
 int verifTime(int time){
-    if (time >1800){
-        // printf("ATTENTION : Le temps est dépassé\n");
+    
+
+    //attendreSecondes(time);
+    if (time >2){
+        // printf("ATTENTION : Le temps est dépassé, la personne à attendu %d secondes\n", time);
         return 0;
     }else
     {
-        // printf("Le temps est bon\n");
+
+        // printf("Le temps est bonla personne à attendu %d secondes\n", time);
         return 1;
     }
 }
@@ -110,7 +131,7 @@ int lireFichier(const char *filename, const char *searchValue) {
 
 int writeInFunction(char text[256])
 {   printf("texte : %s\n", text);
-    char *filename = "./textFile/logs.txt";
+    char *filename = chemin2;
 
     // ouverture du fichier en mode "append" sinon le fichier est écrasé
     FILE *fp = fopen(filename, "a");
@@ -165,11 +186,7 @@ int verifScenario(int i){
         strcat(logs, "La personne n'est pas rentré dans un frigo\n");
         allVerifPass++;
     }
-    if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
-        strcat(logs, phrasePlusTimeFrigo);
-        allVerifPass++;
-    }
+    
     if (verifBadgeSortie(frigoScenario.badgeFrigoSortie) == 0){
         strcat(logs, "La personne n'est pas sorti du frigo\n");
         allVerifPass++;
@@ -183,8 +200,14 @@ int verifScenario(int i){
         strcat(logs, "La personne n'est pas sorti du sas\n");
         allVerifPass++;
     }
+    if (verifTime(frigoScenario.timer) == 0){
+        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+        printf("%s", phrasePlusTimeFrigo);
+        strcat(logs, phrasePlusTimeFrigo);
+        allVerifPass++;
+    }
     if (allVerifPass == 0){
-        printf("Le scénario est bon\n");
+        //printf("Le scénario est bon\n");
         strcat(logs, "Le scénario est bon, tout s'est bien déroulé.\n");
         writeInFunction(logs);
         return 0;
@@ -205,6 +228,7 @@ void lectureScenario(int i ){
     char badgeFrigoSortie[50];
     char capteurTemp[50];
     char timer[50];
+    
 
     //concaténation
     sprintf(badgeEntre, "badgeEntre%d", i);
@@ -216,28 +240,28 @@ void lectureScenario(int i ){
 
     //recherche des variables dans le fichier via les variable concaténés
     // + ajout dans la strucutre en passant par la variable globale line2
-    int badgeSas1 = lireFichier("./textFile/scenario.txt", badgeEntre);
+    int badgeSas1 = lireFichier(chemin, badgeEntre);
     int badgeSasEntreStruct = retourneDenierNombre(line2);
     couloirScenario.badgeEntre = badgeSasEntreStruct;
 
 
-    int badgeSas2 = lireFichier("./textFile/scenario.txt", badgeSortie);
+    int badgeSas2 = lireFichier(chemin, badgeSortie);
     int badgeSasSortieStruct = retourneDenierNombre(line2);
     couloirScenario.badgeSortie = badgeSasSortieStruct;
 
-    int badgeFrigo1 = lireFichier("./textFile/scenario.txt", badgeFrigoEntre);
+    int badgeFrigo1 = lireFichier(chemin, badgeFrigoEntre);
     int badgeFrigoEntreStruct1 = retourneDenierNombre(line2);
     frigoScenario.badgeFrigoEntre = badgeFrigoEntreStruct1;
 
-    int badgeFrigo2 = lireFichier("./textFile/scenario.txt", badgeFrigoSortie);
+    int badgeFrigo2 = lireFichier(chemin, badgeFrigoSortie);
     int badgeFrigoSortieStruct = retourneDenierNombre(line2);
     frigoScenario.badgeFrigoSortie = badgeFrigoSortieStruct;
 
-    int capteurTemp1 = lireFichier("./textFile/scenario.txt", capteurTemp);
+    int capteurTemp1 = lireFichier(chemin, capteurTemp);
     int capteurTempStruct = retourneTemp(line2);
     frigoScenario.capteurTemp = capteurTempStruct;
     
-    int timer1 = lireFichier("./textFile/scenario.txt", timer);
+    int timer1 = lireFichier(chemin, timer);
     int timerStruct = retourneTime(line2);
     frigoScenario.timer = timerStruct;
 
