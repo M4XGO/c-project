@@ -189,35 +189,75 @@ int verifScenario(int i){
     char phrasePlusTimeFrigo[256];
 
     strcat(logs, numScenario);
-    //vérification des badges entré
-    if (verifBadgeEntre(couloirScenario.badgeEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans le sas\n");
-        allVerifPass++;
+    //vérification des badges entré du SAS
+    switch(verifBadgeEntre(couloirScenario.badgeEntre))
+    {
+        case 0 :
+           strcat(logs, "La personne n'est pas rentré dans le sas\n");
+            allVerifPass++;
+            printf("verif sas good");
+        case 1 :
+           strcat(logs, "La personne est bien entrée dans le sas\n");
+
     }
-    if (verifBadgeEntre(frigoScenario.badgeFrigoEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans un frigo\n");
-        allVerifPass++;
+    //verif badge entré porte frigo
+    switch(verifBadgeEntre(frigoScenario.badgeFrigoEntre))
+    {
+        case 0 :
+           strcat(logs, "La personne n'est pas rentré dans un frigo\n");
+            allVerifPass++;
+            printf("verif entre good");
+        case 1 :
+           strcat(logs, "La personne est bien entrée dans le frigo\n");
+
     }
-    
-    if (verifBadgeSortie(frigoScenario.badgeFrigoSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du frigo\n");
-        allVerifPass++;
+    //verif badge sortie porte frigo
+    switch(verifBadgeSortie(frigoScenario.badgeFrigoSortie))
+    {
+        case 0 :
+           strcat(logs, "La personne n'est pas sortie dans un frigo\n");
+            allVerifPass++;
+            printf("verif sortie good");
+        case 1 :
+           strcat(logs, "La personne est bien sortie dans le frigo\n");
+
     }
-    if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
-        // printf("%s", phrasePlusTimeFrigo);
-        strcat(logs, phrasePlusTimeFrigo);
-        allVerifPass++;
+    //verif badge sortie porte sas
+    switch(verifBadgeSortie(couloirScenario.badgeSortie))
+    {
+        case 0 :
+           strcat(logs, "La personne n'est pas sortie du sas\n");
+            allVerifPass++;
+            printf("verif sortie sas good");
+        case 1 :
+           strcat(logs, "La personne est bien sortie du sas\n");
+
     }
-    if (verifTemps(frigoScenario.capteurTemp) == 0){
-        sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
-        strcat(logs, phrasePlusTempFrigo);
-        allVerifPass++;
+    //verif timer
+    switch(verifTime(frigoScenario.timer))
+    {
+        case 0 :
+           sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+            strcat(logs, phrasePlusTimeFrigo);
+            allVerifPass++;
+            printf("verif time good");
+        case 1 :
+           strcat(logs, "La personne n'est pas resté trop longtemps dans le frigo\n");
+
     }
-    if (verifBadgeSortie(couloirScenario.badgeSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du sas\n");
-        allVerifPass++;
+    //verif température
+    switch(verifTemps(frigoScenario.capteurTemp))
+    {
+        case 0 :
+            sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
+            strcat(logs, phrasePlusTempFrigo);
+            allVerifPass++;
+            printf("verif temps good");
+        case 1 :
+           strcat(logs, "La température du frigo est bonne\n");
+
     }
+
     if (allVerifPass == 0){
         //printf("Le scénario est bon\n");
         strcat(logs, "Le scénario est bon, tout s'est bien déroulé.\n");
