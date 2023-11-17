@@ -26,20 +26,20 @@ struct Frigo frigoScenario;
 struct Couloir couloirScenario;
 
 //chemin des fichiers à changer en fonction de l'architecture matériel
-char chemin[50] = "./textFile/scenario.txt";
-char chemin2[50] = "./textFile/logs.txt";
+char chemin[250] = "C:/Users/cleme/Documents/ESGI/B2/C/c-project/textFile/scenario.txt";
+char chemin2[250] = "C:/Users/cleme/Documents/ESGI/B2/C/c-project/textFile/logs.txt";
 
 
 //fonction qui attends un certain nombre de secondes
 void attendreSecondes(int secondes) {
-    clock_t début = clock();
+    clock_t debut = clock();
     clock_t maintenant;
 
     while (1) {
         maintenant = clock();
-        double tempsPassé = (double)(maintenant - début) / CLOCKS_PER_SEC;
+        double tempsPasse = (double)(maintenant - debut) / CLOCKS_PER_SEC;
 
-        if (tempsPassé >= secondes) {
+        if (tempsPasse >= secondes) {
             break;
         }
     }
