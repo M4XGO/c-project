@@ -20,17 +20,17 @@ badgeSortie2 = 1
 badgeFrigoEntre3 = 1
 badgeFrigoSortie3 = 0
 capteurTemp3 = -40
-timer3 = 2
+timer3 = 3
 badgeEntre3 = 1
 badgeSortie3 = 1
 
 #Scénario 4 = la personne est resteee une heure dans un frigo
 badgeFrigoEntre4 = 1
-badgeFrigoSortie4 = 0
-capteurTemp4 = -40
+badgeFrigoSortie4 = 1
+capteurTemp4 = -20
 timer4 = 4
 badgeEntre4 = 1
-badgeSortie4 = 0
+badgeSortie4 = 1
 
 
 #Scénario 5 = La personne n est pas sortie du local
