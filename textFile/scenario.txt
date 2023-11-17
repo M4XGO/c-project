@@ -2,7 +2,7 @@
 badgeFrigoEntre1 = 1
 badgeFrigoSortie1 = 1
 capteurTemp1 = -40
-timer1 = 1800
+timer1 = 2
 badgeEntre1 = 1
 badgeSortie1 = 1
 
@@ -11,32 +11,32 @@ badgeSortie1 = 1
 badgeFrigoEntre2 = 1
 badgeFrigoSortie2 = 1
 capteurTemp2 = 0
-timer2 = 1800
+timer2 = 2
 badgeEntre2 = 1
 badgeSortie2 = 1
 
 
-#Scénario 3 = la personne n est jamais sorti d un frigo
+#Scénario 3 = la personne n est jamais sortie d un frigo
 badgeFrigoEntre3 = 1
 badgeFrigoSortie3 = 0
 capteurTemp3 = -40
-timer3 = 1800
+timer3 = 2
 badgeEntre3 = 1
 badgeSortie3 = 1
 
-#Scénario 4 = la personne est rester une heure dans un frigo
+#Scénario 4 = la personne est resteee une heure dans un frigo
 badgeFrigoEntre4 = 1
 badgeFrigoSortie4 = 0
 capteurTemp4 = -40
-timer4 = 3600
+timer4 = 4
 badgeEntre4 = 1
 badgeSortie4 = 0
 
 
-#Scénario 5 = La personne n est pas sorti du local
+#Scénario 5 = La personne n est pas sortie du local
 badgeFrigoEntre5 = 1
 badgeFrigoSortie5 = 1
 capteurTemp5 = -40
-timer5 = 1800
+timer5 = 2
 badgeEntre5 = 1
 badgeSortie5 = 0
