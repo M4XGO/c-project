@@ -32,14 +32,14 @@ char chemin2[50] = "./textFile/logs.txt";
 
 //fonction qui attends un certain nombre de secondes
 void attendreSecondes(int secondes) {
-    clock_t début = clock();
+    clock_t debut = clock();
     clock_t maintenant;
 
     while (1) {
         maintenant = clock();
-        double tempsPassé = (double)(maintenant - début) / CLOCKS_PER_SEC;
+        double tempsPasse = (double)(maintenant - debut) / CLOCKS_PER_SEC;
 
-        if (tempsPassé >= secondes) {
+        if (tempsPasse >= secondes) {
             break;
         }
     }
@@ -180,7 +180,7 @@ int retourneTime (char chaine[256]){
 int verifScenario(int i){
     int allVerifPass = 0;
     //Creation d'une variable logs qui va etre envoyé dans la fonction writeInFunction
-    char logs[265]; 
+    char logs[1024]; 
     //concaténation du numéro de scénario
     char numScenario[256];
     sprintf(numScenario,"###### Scenario %d #   ######\n", i);
@@ -195,7 +195,7 @@ int verifScenario(int i){
         case 0 :
             strcat(logs, "La personne n'est pas rentré dans le sas\n");
             allVerifPass++;
-            printf("%d", i);
+
         case 1 :
             strcat(logs, "La personne est bien entrée dans le sas\n");
 
@@ -205,7 +205,7 @@ int verifScenario(int i){
         case 0 :
             strcat(logs, "La personne n'est pas rentré dans un frigo\n");
             allVerifPass++;
-            printf("%d", i);
+
         case 1 :
             strcat(logs, "La personne est bien entrée dans le frigo\n");
 
@@ -216,7 +216,7 @@ int verifScenario(int i){
         case 0 :
             strcat(logs, "La personne n'est pas sortie dans un frigo\n");
             allVerifPass++;
-            printf("%d", i);
+
         case 1 :
             strcat(logs, "La personne est bien sortie dans le frigo\n");
 
@@ -227,7 +227,7 @@ int verifScenario(int i){
         case 0 :
             strcat(logs, "La personne n'est pas sortie du sas\n");
             allVerifPass++;
-            printf("%d", i);
+
         case 1 :
             strcat(logs, "La personne est bien sortie du sas\n");
 
@@ -239,7 +239,6 @@ int verifScenario(int i){
             sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
             strcat(logs, phrasePlusTimeFrigo);
             allVerifPass++;
-            printf("verif time good");
         case 1 :
             strcat(logs, "La personne n'est pas resté trop longtemps dans le frigo\n");
 
@@ -251,7 +250,6 @@ int verifScenario(int i){
             sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
             strcat(logs, phrasePlusTempFrigo);
             allVerifPass++;
-            printf("verif temps good");
         case 1 :
             strcat(logs, "La température du frigo est bonne\n");
 
