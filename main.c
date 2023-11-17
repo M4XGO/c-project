@@ -5,30 +5,32 @@
  
 
 struct Couloir {
-    // char badgeEntre[256];
-    // char badgeSortie[256];
     int badgeEntre;
     int badgeSortie;
 };
 
 
 struct Frigo {
-    // char badgeFrigoEntre[256];
-    // char badgeFrigoSortie[256];
-    // char capteurTemp[256];
-    // char timer[256];
     int badgeFrigoEntre;
     int badgeFrigoSortie;
     int capteurTemp;
     int timer;
 };
 
+//variable globale
+//variable qui va contenir la ligne du fichier de scénario
 char line2[256];
+//structure qui va contenir les variables de scénario
 struct Frigo frigoScenario;
+//structure qui va contenir les variables de scénario
 struct Couloir couloirScenario;
+
+//chemin des fichiers à changer en fonction de l'architecture matériel
 char chemin[50] = "./textFile/scenario.txt";
 char chemin2[50] = "./textFile/logs.txt";
 
+
+//fonction qui attends un certain nombre de secondes
 void attendreSecondes(int secondes) {
     clock_t début = clock();
     clock_t maintenant;
@@ -43,11 +45,13 @@ void attendreSecondes(int secondes) {
     }
 }
 
+//fonction qui vide le fichier log au début du programme
 void viderFichierLog(){
     FILE *fp = fopen(chemin2, "w");
     fclose(fp);
 }
 
+//fonctions de vérification
 int verifBadgeEntre(int badge){
     if (badge == 1){
         // printf("La personne est rentré\n");
@@ -95,7 +99,7 @@ int verifTime(int time){
     }
 }
 
-
+//fonction de lecture de fichier
 int lireFichier(const char *filename, const char *searchValue) {
     char line[256];  // Une ligne peut contenir jusqu'à 255 caractères, ajustez selon vos besoins
     int lineNumber = 1;
@@ -128,7 +132,7 @@ int lireFichier(const char *filename, const char *searchValue) {
 }
 
 
-
+//fonction qui écrit dans le fichier log
 int writeInFunction(char text[256])
 {   printf("texte : %s\n", text);
     char *filename = chemin2;
@@ -147,18 +151,23 @@ int writeInFunction(char text[256])
 
     return 0;
 }
+
 //fonction qui retourne le/les derniers nombres d'une chaine de caractère en int
 int retourneDenierNombre (char chaine[256]){
     int resultat;
     sscanf(chaine + (strlen(chaine) - 2), "%d", &resultat);
     return resultat;
 }
+
+//fonction qui retourne la température en int
 int retourneTemp (char chaine[256]){
     int resultat;
     sscanf(chaine + (strlen(chaine) - 4), "%d", &resultat);
     return resultat;
 }
 
+
+//fonction qui retourne le temps en int + appelle la fonctiond d'attente
 int retourneTime (char chaine[256]){
     int resultat;
     // printf("chaine : %s\n", chaine);
@@ -167,6 +176,7 @@ int retourneTime (char chaine[256]){
     return resultat;
 }
 
+//fonction de vérification des scénarios
 int verifScenario(int i){
     int allVerifPass = 0;
     //Creation d'une variable logs qui va etre envoyé dans la fonction writeInFunction
@@ -218,9 +228,9 @@ int verifScenario(int i){
     return 1;
 }
 
-
+//fonction de lecture de scénario
 void lectureScenario(int i ){
-    //crétion des structures qui vont être utiliées
+    
    
 
     //création de varibale pour pouvoir concaténer les noms des variables avec i 
@@ -267,17 +277,16 @@ void lectureScenario(int i ){
     int timerStruct = retourneTime(line2);
     frigoScenario.timer = timerStruct;
 
-   //affichage des structures
-    // printf("\n");
-    // printf("badge entre %d\n badge sortie %d\n badge frigo entre %d\n badge frigo sortie %d\n temp %d\n timer %d\n", couloirScenario.badgeEntre, couloirScenario.badgeSortie, frigoScenario.badgeFrigoEntre, frigoScenario.badgeFrigoSortie, frigoScenario.capteurTemp, frigoScenario.timer);
+    //appel de la fonction de vérification
     verifScenario(i);
 }
+
+
 
 int main() {
     viderFichierLog();
     //boucle qui va parcourir les i scénarios
     for (int i = 1; i < 6; i++){
-        // printf("\n######## Scenario %d ########", i);
         //fonction de parcours de scénarios
         lectureScenario(i);
     }
