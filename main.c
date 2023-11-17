@@ -180,7 +180,7 @@ int retourneTime (char chaine[256]){
 int verifScenario(int i){
     int allVerifPass = 0;
     //Creation d'une variable logs qui va etre envoyé dans la fonction writeInFunction
-    char logs[265]; 
+    char logs[512]; 
     //concaténation du numéro de scénario
     char numScenario[256];
     sprintf(numScenario,"###### Scenario %d #   ######\n", i);
@@ -269,7 +269,7 @@ int verifScenario(int i){
 }
 
 //fonction de lecture de scénario
-void lectureScenario(int i ){
+void lectureScenario(int i){
     
    
 
@@ -292,28 +292,28 @@ void lectureScenario(int i ){
 
     //recherche des variables dans le fichier via les variable concaténés
     // + ajout dans la strucutre en passant par la variable globale line2
-    int badgeSas1 = lireFichier(chemin, badgeEntre);
+    lireFichier(chemin, badgeEntre);
     int badgeSasEntreStruct = retourneDenierNombre(line2);
     couloirScenario.badgeEntre = badgeSasEntreStruct;
 
 
-    int badgeSas2 = lireFichier(chemin, badgeSortie);
+    lireFichier(chemin, badgeSortie);
     int badgeSasSortieStruct = retourneDenierNombre(line2);
     couloirScenario.badgeSortie = badgeSasSortieStruct;
 
-    int badgeFrigo1 = lireFichier(chemin, badgeFrigoEntre);
+    lireFichier(chemin, badgeFrigoEntre);
     int badgeFrigoEntreStruct1 = retourneDenierNombre(line2);
     frigoScenario.badgeFrigoEntre = badgeFrigoEntreStruct1;
 
-    int badgeFrigo2 = lireFichier(chemin, badgeFrigoSortie);
+    lireFichier(chemin, badgeFrigoSortie);
     int badgeFrigoSortieStruct = retourneDenierNombre(line2);
     frigoScenario.badgeFrigoSortie = badgeFrigoSortieStruct;
 
-    int capteurTemp1 = lireFichier(chemin, capteurTemp);
+    lireFichier(chemin, capteurTemp);
     int capteurTempStruct = retourneTemp(line2);
     frigoScenario.capteurTemp = capteurTempStruct;
     
-    int timer1 = lireFichier(chemin, timer);
+    lireFichier(chemin, timer);
     int timerStruct = retourneTime(line2);
     frigoScenario.timer = timerStruct;
 
