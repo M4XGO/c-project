@@ -27,7 +27,7 @@ struct Couloir couloirScenario;
 
 //chemin des fichiers à changer en fonction de l'architecture matériel
 char chemin[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/textFile/scenario.txt";
-char chemin2[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/textFile/Log/log.txt";
+char chemin2[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/output/Log/log.txt";
 
 void ecrireScenario() {
     FILE *file = fopen(chemin, "w");
@@ -305,11 +305,34 @@ void lectureScenario(){
 
 
 
+// Fonction pour créer un nouveau fichier log avec un horodatage
+void creerNouveauFichierLog() {
+    time_t rawtime;
+    struct tm *timeinfo;
+    char timestamp[20];
+    char cheminLog[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/output/Log/";
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S", timeinfo);
+
+    strcat(cheminLog, "log_");
+    strcat(cheminLog, timestamp);
+    strcat(cheminLog, ".txt");
+
+    FILE *fp = fopen(cheminLog, "w");
+    if (fp == NULL) {
+        printf("Erreur lors de la création du fichier log\n");
+        return;
+    }
+    fclose(fp);
+}
+
 int main() {
+    creerNouveauFichierLog();
     viderFichierLog();
     ecrireScenario();
-    //fonction de parcours de scénarios
     lectureScenario();
-    
+
     return 0;
 }

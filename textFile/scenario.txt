@@ -1,7 +1,7 @@
 ########Scénario#######
- badgeFrigoEntre: 0
- badgeFrigoSortie: 1
- capteurTemp: -37
- timer: 2
+ badgeFrigoEntre: 1
+ badgeFrigoSortie: 0
+ capteurTemp: -14
+ timer: 4
  badgeEntre: 1
- badgeSortie: 0
+ badgeSortie: 1
