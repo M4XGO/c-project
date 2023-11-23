@@ -199,13 +199,13 @@ int retourneTime (char chaine[256]){
 }
 
 //fonction de vérification des scénarios
-int verifScenario(int i){
+int verifScenario(){
     int allVerifPass = 0;
     //Creation d'une variable logs qui va etre envoyé dans la fonction writeInFunction
     char logs[265]; 
     //concaténation du numéro de scénario
     char numScenario[256];
-    sprintf(numScenario,"###### Scenario %d #   ######\n", i);
+    sprintf(numScenario,"###### Scenario #######\n");
 
     char phrasePlusTempFrigo[256];
     char phrasePlusTimeFrigo[256];
@@ -251,7 +251,7 @@ int verifScenario(int i){
 }
 
 //fonction de lecture de scénario
-void lectureScenario(int i ){
+void lectureScenario(){
     
    
 
@@ -300,19 +300,16 @@ void lectureScenario(int i ){
     frigoScenario.timer = timerStruct;
 
     //appel de la fonction de vérification
-    verifScenario(i);
+    verifScenario();
 }
 
 
 
 int main() {
     viderFichierLog();
-    //boucle qui va parcourir les i scénarios
-    for (int i = 1; i < 6; i++){
-        ecrireScenario();
-        //fonction de parcours de scénarios
-        lectureScenario(i);
-    }
+    ecrireScenario();
+    //fonction de parcours de scénarios
+    lectureScenario();
     
     return 0;
 }
