@@ -26,8 +26,8 @@ struct Frigo frigoScenario;
 struct Couloir couloirScenario;
 
 //chemin des fichiers à changer en fonction de l'architecture matériel
-char chemin[50] = "./textFile/scenario.txt";
-char chemin2[50] = "./textFile/logs.txt";
+char chemin[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/textFile/scenario.txt";
+char chemin2[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/textFile/Log/log.txt";
 
 void ecrireScenario() {
     FILE *file = fopen(chemin, "w");
@@ -213,36 +213,36 @@ int verifScenario(){
     strcat(logs, numScenario);
     //vérification des badges entré
     if (verifBadgeEntre(couloirScenario.badgeEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans le sas\n");
+        strcat(logs, "La personne n'est pas rentree dans le sas\n");
         allVerifPass++;
     }
     if (verifBadgeEntre(frigoScenario.badgeFrigoEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans un frigo\n");
+        strcat(logs, "La personne n'est pas rentree dans un frigo\n");
         allVerifPass++;
     }
     
     if (verifBadgeSortie(frigoScenario.badgeFrigoSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du frigo\n");
+        strcat(logs, "La personne n'est pas sortie du frigo\n");
         allVerifPass++;
     }
     if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+        sprintf(phrasePlusTimeFrigo, "La personne est restee trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
         // printf("%s", phrasePlusTimeFrigo);
         strcat(logs, phrasePlusTimeFrigo);
         allVerifPass++;
     }
     if (verifTemps(frigoScenario.capteurTemp) == 0){
-        sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
+        sprintf(phrasePlusTempFrigo, "La temperature du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
         strcat(logs, phrasePlusTempFrigo);
         allVerifPass++;
     }
     if (verifBadgeSortie(couloirScenario.badgeSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du sas\n");
+        strcat(logs, "La personne n'est pas sortie du sas\n");
         allVerifPass++;
     }
     if (allVerifPass == 0){
         //printf("Le scénario est bon\n");
-        strcat(logs, "Le scénario est bon, tout s'est bien déroulé.\n");
+        strcat(logs, "Le scenario est bon, tout s'est bien deroule.\n");
         writeInFunction(logs);
         return 0;
     }
