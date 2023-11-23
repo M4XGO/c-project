@@ -1,0 +1,8 @@
+###### Scenario 1 #######
+La personne n'est pas rentre dans le sas
+La personne n'est pas rentre dans un frigo
+La personne n'est pas sortie du frigo
+La personne est restee trop longtemps dans le frigo : 8sec
+La température du frigo est trop haute : 8 degre
+La personne!n'est pas sorti du sas
+

@@ -1,7 +1,7 @@
-#Scénario 1 = tout va bien
-badgeFrigoEntre1 = 1
-badgeFrigoSortie1 = 1
-capteurTemp1 = -40
-timer1 = 2
-badgeEntre1 = 1
-badgeSortie1 = 1
+########Scénario#######
+ badgeFrigoEntre: 1
+ badgeFrigoSortie: 1
+ capteurTemp: -36
+ timer: 5
+ badgeEntre: 0
+ badgeSortie: 0

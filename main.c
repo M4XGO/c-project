@@ -166,7 +166,7 @@ int writeInFunction(char text[256]) {
 //fonction qui retourne le/les derniers nombres d'une chaine de caractère en int
 int retourneDernierNombre(char chaine[256]) {
     int resultat;
-    sscanf(chaine + (strlen(chaine) - 1), "%d", &resultat);
+    sscanf(chaine + (strlen(chaine) - 2), "%d", &resultat);
     return resultat;
 }
 
@@ -180,7 +180,7 @@ int retourneTemp(char chaine[256]) {
 //fonction qui retourne le temps en int + appelle la fonctiond d'attente
 int retourneTime(char chaine[256]) {
     int resultat;
-    sscanf(chaine + (strlen(chaine) - 1), "%d", &resultat);
+    sscanf(chaine + (strlen(chaine) - 2), "%d", &resultat);
     return resultat;
 }
 
@@ -247,15 +247,16 @@ void lectureScenario(int i) {
     char timer[50];
 
     //concaténation
-    sprintf(badgeEntre, "badgeEntre%d", i);
-    sprintf(badgeSortie, "badgeSortie%d", i);
     sprintf(badgeFrigoEntre, "badgeFrigoEntre%d", i);
     sprintf(badgeFrigoSortie, "badgeFrigoSortie%d", i);
+    sprintf(badgeEntre, "badgeEntre%d", i);
+    sprintf(badgeSortie, "badgeSortie%d", i);
     sprintf(capteurTemp, "capteurTemp%d", i);
     sprintf(timer, "timer%d", i);
 
     //recherche des variables dans le fichier via les variable concaténés
     // + ajout dans la strucutre en passant par la variable globale line2
+
     int badgeSasEntreStruct = retourneDernierNombre(line2);
     couloirScenario.badgeEntre = badgeSasEntreStruct;
 
@@ -292,13 +293,14 @@ int main() {
 
     // Mise à jour du chemin du fichier log
     strcpy(chemin2, filename);
-
-    //appel de la fonction d'écriture de scénario
-    //ecrireScenario();
-    //boucle qui va parcourir les i scénarios
-    for (int i = 1; i < 2; i++) {
-        //fonction de parcours de scénarios
-        lectureScenario(i);
+    ecrireScenario();
+    // Lecture du fichier de scénario
+    if (lireFichier(chemin, "########Scénario#######")) {
+        // Boucle qui va parcourir les i scénarios
+        for (int i = 1; i < 2; i++) {
+            // Fonction de parcours de scénarios
+            lectureScenario(i);
+        }
     }
 
     return 0;
