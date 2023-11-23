@@ -29,6 +29,28 @@ struct Couloir couloirScenario;
 char chemin[50] = "./textFile/scenario.txt";
 char chemin2[50] = "./textFile/logs.txt";
 
+void ecrireScenario() {
+    FILE *file = fopen(chemin, "w");
+
+    if (file == NULL) {
+        printf("Le fichier ne peut pas être ouvert\n");
+        return;
+    }
+
+    srand(time(NULL));
+
+    int badgeEntre = rand() % 2;
+    int badgeSortie = rand() % 2;
+    int badgeFrigoEntre = rand() % 2;
+    int badgeFrigoSortie = rand() % 2;
+    int capteurTemp = -5 - rand() % 36; // Valeur aléatoire entre -40 et -5
+    int timer = 1 + rand() % 5; // Valeur aléatoire entre 1 et 10
+
+    fprintf(file, "########Scénario#######\n badgeFrigoEntre: %d\n badgeFrigoSortie: %d\n capteurTemp: %d\n timer: %d\n badgeEntre: %d\n badgeSortie: %d\n",
+             badgeFrigoEntre, badgeFrigoSortie, capteurTemp, timer, badgeEntre, badgeSortie);
+
+    fclose(file);
+}
 
 //fonction qui attends un certain nombre de secondes
 void attendreSecondes(int secondes) {
@@ -243,12 +265,12 @@ void lectureScenario(int i ){
     
 
     //concaténation
-    sprintf(badgeEntre, "badgeEntre%d", i);
-    sprintf(badgeSortie, "badgeSortie%d", i);
-    sprintf(badgeFrigoEntre, "badgeFrigoEntre%d", i);
-    sprintf(badgeFrigoSortie, "badgeFrigoSortie%d", i);
-    sprintf(capteurTemp, "capteurTemp%d", i);
-    sprintf(timer, "timer%d", i);
+    sprintf(badgeEntre, "badgeEntre");
+    sprintf(badgeSortie, "badgeSortie");
+    sprintf(badgeFrigoEntre, "badgeFrigoEntre");
+    sprintf(badgeFrigoSortie, "badgeFrigoSortie");
+    sprintf(capteurTemp, "capteurTemp");
+    sprintf(timer, "timer");
 
     //recherche des variables dans le fichier via les variable concaténés
     // + ajout dans la strucutre en passant par la variable globale line2
@@ -287,6 +309,7 @@ int main() {
     viderFichierLog();
     //boucle qui va parcourir les i scénarios
     for (int i = 1; i < 6; i++){
+        ecrireScenario();
         //fonction de parcours de scénarios
         lectureScenario(i);
     }
