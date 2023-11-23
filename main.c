@@ -304,32 +304,18 @@ void lectureScenario(){
 }
 
 
-
-// Fonction pour créer un nouveau fichier log avec un horodatage
-void creerNouveauFichierLog() {
+int main() {
+    // Génération du nom de fichier avec horodatage
     time_t rawtime;
     struct tm *timeinfo;
-    char timestamp[20];
-    char cheminLog[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/output/Log/";
-
+    char filename[100];
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S", timeinfo);
+    strftime(filename, sizeof(filename), "Log/log%Y-%m-%d_%H-%M-%S.txt", timeinfo);
 
-    strcat(cheminLog, "log_");
-    strcat(cheminLog, timestamp);
-    strcat(cheminLog, ".txt");
+    // Mise à jour du chemin du fichier log
+    strcpy(chemin2, filename);
 
-    FILE *fp = fopen(cheminLog, "w");
-    if (fp == NULL) {
-        printf("Erreur lors de la création du fichier log\n");
-        return;
-    }
-    fclose(fp);
-}
-
-int main() {
-    creerNouveauFichierLog();
     viderFichierLog();
     ecrireScenario();
     lectureScenario();
