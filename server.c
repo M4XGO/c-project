@@ -238,9 +238,6 @@ int verifScenario(int i){
 
 //fonction de lecture de scénario
 void lectureScenario(int i ){
-    
-   
-
     //création de varibale pour pouvoir concaténer les noms des variables avec i 
     char badgeEntre[50];
     char badgeSortie[50];
@@ -352,32 +349,21 @@ void handle_telnet_commands(int client_socket) {
         // Pour cet exemple, nous affichons simplement la commande
         buffer[bytes_received] = '\0';
 
-        printf("Commande reçue : %s\n", buffer);
-
-        // Vous pouvez ajouter la logique d'exécution des commandes ici
-        // Exemple: system(buffer);
-
         // Lire les données du client
         read(client_socket, buffer, BUFFER_SIZE);
         printf("Message du client : %s\n", buffer);;
 
         // ouverture du fichier en mode 'append' sinon le fichier est écraasé
         FILE  *fp = fopen("scenario.txt", "w+");
+
+            //lecture du fichier de scénario recu
+        programFile();
+        //envoie des logs
+        sendToClient(client_socket);
         fprintf(fp, "%s\n", buffer);
         fclose(fp);
 
-
-        //lecture du fichier de scénario recu
-        programFile();
-
-
-        //envoie des logs
-        sendToClient(client_socket);
-
     }
-
-
-
 }
 
 int main() {
@@ -404,6 +390,7 @@ int main() {
 
     // Traitement des commandes Telnet
     handle_telnet_commands(client_socket);
+
     // Fermeture des sockets
     close(client_socket);
     close(server_socket);
