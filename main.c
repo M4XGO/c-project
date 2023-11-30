@@ -26,9 +26,67 @@ struct Frigo frigoScenario;
 struct Couloir couloirScenario;
 
 //chemin des fichiers à changer en fonction de l'architecture matériel
-char chemin[50] = "./textFile/scenario.txt";
-char chemin2[50] = "./textFile/logs.txt";
+char chemin[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/textFile/scenario.txt";
+char chemin2[100] = "C:/Users/theop/Desktop/ESGI/B2/C_avance/code/c-project/output/Log/log.txt";
 
+void ecrireScenario() {
+    FILE *file = fopen(chemin, "w");
+
+    if (file == NULL) {
+        printf("Le fichier ne peut pas être ouvert\n");
+        return;
+    }
+
+    srand(time(NULL));
+
+    int badgeEntre = rand() % 2;
+    int badgeSortie = rand() % 2;
+    int badgeFrigoEntre = rand() % 2;
+    int badgeFrigoSortie = rand() % 2;
+    int capteurTemp = -5 - rand() % 36; // Valeur aléatoire entre -40 et -5
+    int timer = 1 + rand() % 11; // Valeur aléatoire entre 1 et 10
+
+//pour les cas impossible : la personne ne peueut pas sortir du frigo si elle n'y est pas rentré etc...
+    switch (badgeEntre)
+    {
+    case 0: //badge non présent
+        badgeFrigoEntre = 0;
+        badgeFrigoSortie = 0;
+        badgeSortie = 0;
+        timer = 0;
+            
+        break;
+
+        default:
+            break;
+    }
+
+    switch (badgeFrigoSortie)
+    {
+    case 1 :
+        badgeFrigoEntre = 1;
+
+        break;
+    
+    default:
+        break;
+    }
+    switch (badgeSortie)
+    {
+        case 1 : //badge présent
+            badgeFrigoSortie = 1;
+            break;
+
+        default:
+            break;
+    }
+
+
+    fprintf(file, "########Scénario#######\n badgeEntre: %d\n badgeFrigoEntre: %d\n badgeFrigoSortie: %d\n capteurTemp: %d\n timer: %d\n  badgeSortie: %d\n",
+             badgeEntre, badgeFrigoEntre, badgeFrigoSortie, capteurTemp, timer, badgeSortie);
+
+    fclose(file);
+}
 
 //fonction qui attends un certain nombre de secondes
 void attendreSecondes(int secondes) {
@@ -177,13 +235,13 @@ int retourneTime (char chaine[256]){
 }
 
 //fonction de vérification des scénarios
-int verifScenario(int i){
+int verifScenario(){
     int allVerifPass = 0;
     //Creation d'une variable logs qui va etre envoyé dans la fonction writeInFunction
     char logs[265]; 
     //concaténation du numéro de scénario
     char numScenario[256];
-    sprintf(numScenario,"###### Scenario %d #   ######\n", i);
+    sprintf(numScenario,"###### Scenario #######\n");
 
     char phrasePlusTempFrigo[256];
     char phrasePlusTimeFrigo[256];
@@ -191,36 +249,36 @@ int verifScenario(int i){
     strcat(logs, numScenario);
     //vérification des badges entré
     if (verifBadgeEntre(couloirScenario.badgeEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans le sas\n");
+        strcat(logs, "La personne n'est pas rentree dans le sas\n");
         allVerifPass++;
     }
     if (verifBadgeEntre(frigoScenario.badgeFrigoEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans un frigo\n");
+        strcat(logs, "La personne n'est pas rentree dans un frigo\n");
         allVerifPass++;
     }
     
     if (verifBadgeSortie(frigoScenario.badgeFrigoSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du frigo\n");
+        strcat(logs, "La personne n'est pas sortie du frigo\n");
         allVerifPass++;
     }
     if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+        sprintf(phrasePlusTimeFrigo, "La personne est restee trop longtemps dans le frigo : %d minutes\n", frigoScenario.timer);
         // printf("%s", phrasePlusTimeFrigo);
         strcat(logs, phrasePlusTimeFrigo);
         allVerifPass++;
     }
     if (verifTemps(frigoScenario.capteurTemp) == 0){
-        sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
+        sprintf(phrasePlusTempFrigo, "La temperature du frigo est de : %d degre\n", frigoScenario.capteurTemp);
         strcat(logs, phrasePlusTempFrigo);
         allVerifPass++;
     }
     if (verifBadgeSortie(couloirScenario.badgeSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du sas\n");
+        strcat(logs, "La personne n'est pas sortie du sas\n");
         allVerifPass++;
     }
     if (allVerifPass == 0){
         //printf("Le scénario est bon\n");
-        strcat(logs, "Le scénario est bon, tout s'est bien déroulé.\n");
+        strcat(logs, "Le scenario est bon, tout s'est bien deroule.\n");
         writeInFunction(logs);
         return 0;
     }
@@ -229,7 +287,7 @@ int verifScenario(int i){
 }
 
 //fonction de lecture de scénario
-void lectureScenario(int i ){
+void lectureScenario(){
     
    
 
@@ -243,12 +301,12 @@ void lectureScenario(int i ){
     
 
     //concaténation
-    sprintf(badgeEntre, "badgeEntre%d", i);
-    sprintf(badgeSortie, "badgeSortie%d", i);
-    sprintf(badgeFrigoEntre, "badgeFrigoEntre%d", i);
-    sprintf(badgeFrigoSortie, "badgeFrigoSortie%d", i);
-    sprintf(capteurTemp, "capteurTemp%d", i);
-    sprintf(timer, "timer%d", i);
+    sprintf(badgeEntre, "badgeEntre");
+    sprintf(badgeSortie, "badgeSortie");
+    sprintf(badgeFrigoEntre, "badgeFrigoEntre");
+    sprintf(badgeFrigoSortie, "badgeFrigoSortie");
+    sprintf(capteurTemp, "capteurTemp");
+    sprintf(timer, "timer");
 
     //recherche des variables dans le fichier via les variable concaténés
     // + ajout dans la strucutre en passant par la variable globale line2
@@ -278,18 +336,25 @@ void lectureScenario(int i ){
     frigoScenario.timer = timerStruct;
 
     //appel de la fonction de vérification
-    verifScenario(i);
+    verifScenario();
 }
 
 
-
 int main() {
+    // Génération du nom de fichier avec horodatage
+    time_t rawtime;
+    struct tm *timeinfo;
+    char filename[100];
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    strftime(filename, sizeof(filename), "Log/log%Y-%m-%d_%H-%M-%S.txt", timeinfo);
+
+    // Mise à jour du chemin du fichier log
+    strcpy(chemin2, filename);
+
     viderFichierLog();
-    //boucle qui va parcourir les i scénarios
-    for (int i = 1; i < 6; i++){
-        //fonction de parcours de scénarios
-        lectureScenario(i);
-    }
-    
+    ecrireScenario();
+    lectureScenario();
+
     return 0;
 }
