@@ -46,8 +46,34 @@ void ecrireScenario() {
     int capteurTemp = -5 - rand() % 36; // Valeur aléatoire entre -40 et -5
     int timer = 1 + rand() % 5; // Valeur aléatoire entre 1 et 10
 
-    fprintf(file, "########Scénario#######\n badgeFrigoEntre: %d\n badgeFrigoSortie: %d\n capteurTemp: %d\n timer: %d\n badgeEntre: %d\n badgeSortie: %d\n",
-             badgeFrigoEntre, badgeFrigoSortie, capteurTemp, timer, badgeEntre, badgeSortie);
+//pour les cas impossible : la personne ne peueut pas sortir du frigo si elle n'y est pas rentré etc...
+    switch (badgeEntre)
+    {
+    case 0: //badge non présent
+        badgeFrigoEntre = 0;
+        badgeFrigoSortie = 0;
+        badgeSortie = 0;
+            
+        break;
+
+        default:
+            break;
+    }
+    switch (badgeSortie)
+    {
+        case 1 : //badge présent
+            badgeEntre = 1;
+            badgeFrigoEntre = 1;
+            badgeFrigoSortie = 1;
+            break;
+
+        default:
+            break;
+    }
+
+
+    fprintf(file, "########Scénario#######\n badgeEntre: %d\n badgeFrigoEntre: %d\n badgeFrigoSortie: %d\n capteurTemp: %d\n timer: %d\n  badgeSortie: %d\n",
+             badgeEntre, badgeFrigoEntre, badgeFrigoSortie, capteurTemp, timer, badgeSortie);
 
     fclose(file);
 }
@@ -232,7 +258,7 @@ int verifScenario(){
         allVerifPass++;
     }
     if (verifTemps(frigoScenario.capteurTemp) == 0){
-        sprintf(phrasePlusTempFrigo, "La temperature du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
+        sprintf(phrasePlusTempFrigo, "La temperature du frigo est de : %d degre\n", frigoScenario.capteurTemp);
         strcat(logs, phrasePlusTempFrigo);
         allVerifPass++;
     }
