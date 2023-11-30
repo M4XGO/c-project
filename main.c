@@ -44,7 +44,7 @@ void ecrireScenario() {
     int badgeFrigoEntre = rand() % 2;
     int badgeFrigoSortie = rand() % 2;
     int capteurTemp = -5 - rand() % 36; // Valeur aléatoire entre -40 et -5
-    int timer = 1 + rand() % 5; // Valeur aléatoire entre 1 et 10
+    int timer = 1 + rand() % 11; // Valeur aléatoire entre 1 et 10
 
 //pour les cas impossible : la personne ne peueut pas sortir du frigo si elle n'y est pas rentré etc...
     switch (badgeEntre)
@@ -53,17 +53,27 @@ void ecrireScenario() {
         badgeFrigoEntre = 0;
         badgeFrigoSortie = 0;
         badgeSortie = 0;
+        timer = 0;
             
         break;
 
         default:
             break;
     }
+
+    switch (badgeFrigoSortie)
+    {
+    case 1 :
+        badgeFrigoEntre = 1;
+
+        break;
+    
+    default:
+        break;
+    }
     switch (badgeSortie)
     {
         case 1 : //badge présent
-            badgeEntre = 1;
-            badgeFrigoEntre = 1;
             badgeFrigoSortie = 1;
             break;
 
@@ -252,7 +262,7 @@ int verifScenario(){
         allVerifPass++;
     }
     if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est restee trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+        sprintf(phrasePlusTimeFrigo, "La personne est restee trop longtemps dans le frigo : %d minutes\n", frigoScenario.timer);
         // printf("%s", phrasePlusTimeFrigo);
         strcat(logs, phrasePlusTimeFrigo);
         allVerifPass++;
