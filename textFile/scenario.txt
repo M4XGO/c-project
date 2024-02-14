@@ -22,9 +22,9 @@ badgeFrigoSortie3 = 0
 capteurTemp3 = -40
 timer3 = 3
 badgeEntre3 = 1
-badgeSortie3 = 1
+badgeSortie3 = 0
 
-#Scénario 4 = la personne est resteee une heure dans un frigo
+#Scénario 4 = la personne est restee une heure dans un frigo
 badgeFrigoEntre4 = 1
 badgeFrigoSortie4 = 1
 capteurTemp4 = -20

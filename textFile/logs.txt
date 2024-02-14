@@ -1,47 +1,41 @@
-###### Scenario 1 #   ######
+###### Scenario 1 #######
 La personne est bien entrée dans le sas
-La personne est bien entrée dans le frigo
-La personne est bien sortie dans le frigo
+La personne est bien entrée dans un frigo
+La personne est bien sortie du frigo
 La personne est bien sortie du sas
-La personne n'est pas resté trop longtemps dans le frigo
+La personne n'est pas restée trop longtemps dans le frigo
 La température du frigo est bonne
 Le scénario est bon, tout s'est bien déroulé.
 
-###### Scenario 2 #   ######
+###### Scenario 2 #######
 La personne est bien entrée dans le sas
-La personne est bien entrée dans le frigo
-La personne est bien sortie dans le frigo
+La personne est bien entrée dans un frigo
+La personne est bien sortie du frigo
 La personne est bien sortie du sas
-La personne n'est pas resté trop longtemps dans le frigo
+La personne n'est pas restée trop longtemps dans le frigo
 La température du frigo est trop haute : 0 degre
+
+###### Scenario 3 #######
+La personne est bien entrée dans le sas
+La personne est bien entrée dans un frigo
+La personne n'est pas sortie du frigo
+La personne est bien sortie du sas
+La personne est restée trop longtemps dans le frigo : 3sec
 La température du frigo est bonne
 
-###### Scenario 3 #   ######
+###### Scenario 4 #######
 La personne est bien entrée dans le sas
-La personne est bien entrée dans le frigo
-La personne n'est pas sortie dans un frigo
-La personne est bien sortie dans le frigo
+La personne est bien entrée dans un frigo
+La personne est bien sortie du frigo
 La personne est bien sortie du sas
-La personne est resté trop longtemps dans le frigo : 3sec
-La personne n'est pas resté trop longtemps dans le frigo
-La température du frigo est bonne
-
-###### Scenario 4 #   ######
-La personne est bien entrée dans le sas
-La personne est bien entrée dans le frigo
-La personne est bien sortie dans le frigo
-La personne est bien sortie du sas
-La personne est resté trop longtemps dans le frigo : 4sec
-La personne n'est pas resté trop longtemps dans le frigo
+La personne est restée trop longtemps dans le frigo : 4sec
 La température du frigo est trop haute : -20 degre
-La température du frigo est bonne
 
-###### Scenario 5 #   ######
+###### Scenario 5 #######
 La personne est bien entrée dans le sas
-La personne est bien entrée dans le frigo
-La personne est bien sortie dans le frigo
+La personne est bien entrée dans un frigo
+La personne est bien sortie du frigo
 La personne n'est pas sortie du sas
-La personne est bien sortie du sas
-La personne n'est pas resté trop longtemps dans le frigo
+La personne n'est pas restée trop longtemps dans le frigo
 La température du frigo est bonne
 
