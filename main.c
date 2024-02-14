@@ -183,7 +183,7 @@ int verifScenario(int i){
     char logs[1024]; 
     //concaténation du numéro de scénario
     char numScenario[256];
-    sprintf(numScenario,"###### Scenario %d #   ######\n", i);
+    sprintf(numScenario,"###### Scenario %d #######\n", i);
 
     char phrasePlusTempFrigo[256];
     char phrasePlusTimeFrigo[256];
