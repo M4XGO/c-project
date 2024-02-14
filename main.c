@@ -32,14 +32,14 @@ char chemin2[50] = "./textFile/logs.txt";
 
 //fonction qui attends un certain nombre de secondes
 void attendreSecondes(int secondes) {
-    clock_t début = clock();
+    clock_t debut = clock();
     clock_t maintenant;
 
     while (1) {
         maintenant = clock();
-        double tempsPassé = (double)(maintenant - début) / CLOCKS_PER_SEC;
+        double tempsPasse = (double)(maintenant - debut) / CLOCKS_PER_SEC;
 
-        if (tempsPassé >= secondes) {
+        if (tempsPasse >= secondes) {
             break;
         }
     }
@@ -76,24 +76,23 @@ int verifBadgeSortie(int badge){
 
 int verifTemps(int temp){
     if (temp > -35){
-        // printf("ATTENTIN : La température à remonté\n");
+        // printf("ATTENTIN : La température à remonté\n %d", temp);
         return 0;    
-    }else{
-        // printf("La température est bonne\n");
+    }
+    else{
+        // printf("La température est bonne\n%d", temp);
         return 1;
     }
 }
 
 int verifTime(int time){
     
-
     attendreSecondes(time);
-    if (time >2){
+    if (time > 2){
         // printf("ATTENTION : Le temps est dépassé, la personne à attendu %d secondes\n", time);
         return 0;
-    }else
-    {
-
+    }
+    else{
         // printf("Le temps est bonla personne à attendu %d secondes\n", time);
         return 1;
     }
@@ -180,44 +179,94 @@ int retourneTime (char chaine[256]){
 int verifScenario(int i){
     int allVerifPass = 0;
     //Creation d'une variable logs qui va etre envoyé dans la fonction writeInFunction
-    char logs[265]; 
+    char logs[1024]; 
     //concaténation du numéro de scénario
     char numScenario[256];
-    sprintf(numScenario,"###### Scenario %d #   ######\n", i);
+    sprintf(numScenario,"###### Scenario %d #######\n", i);
 
     char phrasePlusTempFrigo[256];
     char phrasePlusTimeFrigo[256];
 
     strcat(logs, numScenario);
-    //vérification des badges entré
-    if (verifBadgeEntre(couloirScenario.badgeEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans le sas\n");
-        allVerifPass++;
+    //vérification des badges entré du SAS
+    switch(verifBadgeEntre(couloirScenario.badgeEntre))
+    {
+        case 0 :
+            strcat(logs, "La personne n'est pas rentrée dans le sas\n");
+            allVerifPass++;
+            break;
+
+        case 1 :
+            strcat(logs, "La personne est bien entrée dans le sas\n");
+            break;
+
     }
-    if (verifBadgeEntre(frigoScenario.badgeFrigoEntre) == 0){
-        strcat(logs, "La personne n'est pas rentré dans un frigo\n");
-        allVerifPass++;
+    //verif badge entré porte frigo
+    switch(verifBadgeEntre(frigoScenario.badgeFrigoEntre))
+    {
+        case 0 :
+            strcat(logs, "La personne n'est pas rentrée dans un frigo\n");
+            allVerifPass++;
+            break;
+
+        case 1 :
+            strcat(logs, "La personne est bien entrée dans un frigo\n");
+            break;
+
     }
+    //verif badge sortie porte frigo
+    switch(verifBadgeSortie(frigoScenario.badgeFrigoSortie))
+    {
+        case 0 :
+            strcat(logs, "La personne n'est pas sortie du frigo\n");
+            allVerifPass++;
+            break;
+
+        case 1 :
+            strcat(logs, "La personne est bien sortie du frigo\n");
+            break;
+
+    }
+    //verif badge sortie porte sas
+    switch(verifBadgeSortie(couloirScenario.badgeSortie))
+    {
+        case 0 :
+            strcat(logs, "La personne n'est pas sortie du sas\n");
+            allVerifPass++;
+            break;
+
+        case 1 :
+            strcat(logs, "La personne est bien sortie du sas\n");
+            break;
+
+    }
+    //verif timer
+    switch(verifTime(frigoScenario.timer))
+    {
+        case 0 :
+            sprintf(phrasePlusTimeFrigo, "La personne est restée trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
+            strcat(logs, phrasePlusTimeFrigo);
+            allVerifPass++;
+            break;
+        case 1 :
+            strcat(logs, "La personne n'est pas restée trop longtemps dans le frigo\n");
+            break;
+    }
+    //verif température
+    switch(verifTemps(frigoScenario.capteurTemp))
+    {
+        case 0 :
+            sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
+            strcat(logs, phrasePlusTempFrigo);
+            allVerifPass++;
+            break;
+        case 1 :
+            strcat(logs, "La température du frigo est bonne\n");
+            break;
+
+    }
+
     
-    if (verifBadgeSortie(frigoScenario.badgeFrigoSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du frigo\n");
-        allVerifPass++;
-    }
-    if (verifTime(frigoScenario.timer) == 0){
-        sprintf(phrasePlusTimeFrigo, "La personne est resté trop longtemps dans le frigo : %dsec\n", frigoScenario.timer);
-        // printf("%s", phrasePlusTimeFrigo);
-        strcat(logs, phrasePlusTimeFrigo);
-        allVerifPass++;
-    }
-    if (verifTemps(frigoScenario.capteurTemp) == 0){
-        sprintf(phrasePlusTempFrigo, "La température du frigo est trop haute : %d degre\n", frigoScenario.capteurTemp);
-        strcat(logs, phrasePlusTempFrigo);
-        allVerifPass++;
-    }
-    if (verifBadgeSortie(couloirScenario.badgeSortie) == 0){
-        strcat(logs, "La personne n'est pas sorti du sas\n");
-        allVerifPass++;
-    }
     if (allVerifPass == 0){
         //printf("Le scénario est bon\n");
         strcat(logs, "Le scénario est bon, tout s'est bien déroulé.\n");
